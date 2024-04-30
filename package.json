@@ -1,0 +1,24 @@
+{
+  "name": "js-demo",
+  "version": "1.0.0",
+  "description": "node dem",
+  "main": "app.js",
+  "scripts": {
+    "start": "babel-node ./app.js",
+    "test": "jest",
+    "build": "echo test build completed! no package created"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "michael",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset": "^1.1.7",
+    "babel-preset-env": "^1.7.0",
+    "express": "^4.19.2",
+    "jest": "^29.7.0"
+  },
+  "type": "module"
+}
