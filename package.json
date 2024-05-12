@@ -2,6 +2,7 @@
   "name": "js-demo",
   "version": "1.0.0",
   "description": "node dem",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "start": "babel-node ./app.js",
@@ -16,9 +17,10 @@
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset": "^1.1.7",
-    "babel-preset-env": "^1.7.0",
+    "babel-preset-env": "^0.0.0",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "jest": "^29.7.0"
-  },
-  "type": "module"
+    "jest": "^29.7.0",
+    "mongodb": "^6.6.1"
+  }
 }
