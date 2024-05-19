@@ -66,34 +66,84 @@ export const getMonthsName = (req, res) => {
 }
 // get list of people -- This can come from a database and what's defined in model.js
 // but for the purspuse of this demo, I'm going o juts type a couple of names
-export const getPeople = (req, res) => {
-    res.json([
-        {
-            FirstName: 'Yann',
-            LastName: 'Mulonda',
-            title: 'Software Engineer',
-            LinkedIn: 'https://www.linkedin.com/in/yannmjl/'
-        },
-        {
-            FirstName: 'Michael',
-            LastName: 'Neis',
-            title: 'Software Developer',
-            LinkedIn: 'https://www.linkedin.com/in/bernard-ngandu/'
-        },
-        {
-            FirstName: 'Odon',
-            LastName: 'Mulambo',
-            title: 'Software Developer',
-            LinkedIn: 'https://www.linkedin.com/in/clerc-ngonga-b1253b174/'
-        },
-        {
-            FirstName: 'David',
-            LastName: 'Braun',
-            title: 'Full Stack Developer',
-            LinkedIn: 'https://www.linkedin.com/in/gloire-kafwalubi-3152871a0/'
+// export const getPeople = (req, res) => {
+//     res.json([
+//         {
+//             FirstName: 'Yann',
+//             LastName: 'Mulonda',
+//             title: 'Software Engineer',
+//             LinkedIn: 'https://www.linkedin.com/in/yannmjl/'
+//         },
+//         {
+//             FirstName: 'Michael',
+//             LastName: 'Neis',
+//             title: 'Software Developer',
+//             LinkedIn: 'https://www.linkedin.com/in/bernard-ngandu/'
+//         },
+//         {
+//             FirstName: 'Odon',
+//             LastName: 'Mulambo',
+//             title: 'Software Developer',
+//             LinkedIn: 'https://www.linkedin.com/in/clerc-ngonga-b1253b174/'
+//         },
+//         {
+//             FirstName: 'David',
+//             LastName: 'Braun',
+//             title: 'Full Stack Developer',
+//             LinkedIn: 'https://www.linkedin.com/in/gloire-kafwalubi-3152871a0/'
+//         }
+//     ]);
+// }
+
+
+
+
+
+
+
+
+
+
+// create new person
+export const createPerson = async (req, res) => {
+    const dbName = "node-js-demo";
+    const collectionName = "people";
+    var addedPerson;
+
+    try{
+        await client.connect();
+        await client.db("admin").command({ ping: 1 });
+
+        console.log("Connecting in updater function");
+
+        const database = client.db(dbName);
+        const collection = database.collection(collectionName);
+
+        try{
+
+            const newPerson = {
+                FirstName: "Mitch",
+                LastName: "McKenzie",
+                Title: "Data Analyst"
+            }
+
+            // insertOne takes object with params and inserts it into the db
+            const result = await collection.insertOne(newPerson);
+            console.log(`New listing created with the following id: ${result.insertedId}`);
+        } catch (err) {
+            console.error(`Something went wrong trying to insert the new documents: ${err}\n`);
         }
-    ]);
+
+
+    } finally {
+        await client.close();
+    }
+    return res.json(addedPerson);
 }
+
+
+
+
 
 // creating export API to get list of people from DB
 export const getPeopleFromDatabase = async (req, res) => {
@@ -136,4 +186,41 @@ export const getPeopleFromDatabase = async (req, res) => {
 }
     // getNameFromDb().catch(console.dir);
 
+
+
+
+export const updatePerson = async (req, res) => {
+    const dbName = "node-js-demo";
+    const collectionName = "people";
+    var updatedPerson;
+
+    try{
+        await client.connect();
+        await client.db("admin").command({ ping: 1 });
+
+        console.log("Connecting in updater function");
+
+        const database = client.db(dbName);
+        const collection = database.collection(collectionName);
+
+        try {
+            // update here
+            // updateOne function matches first object with filter params, uses $set to update or create new params
+            updatedPerson = await collection.updateOne({ FirstName:"Michael"}, {$set:{Title:"Software Developer", Employed: false}});
+
+            // returns promise opject that says whether there is a matching document and if it has been updated successfully
+            console.log(`${updatedPerson.matchedCount} document(s) matched the query criteria.`);
+            console.log(`${updatedPerson.modifiedCount} document(s) updated.`);
+            
+
+            
+          }catch (err) {
+            console.error(`Something went wrong trying to update the documents: ${err}\n`);
+          }
+    } finally {
+        await client.close();
+    }
+
+    return res.json(updatedPerson);
+}
 
