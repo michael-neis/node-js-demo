@@ -1,73 +1,65 @@
 import dotenv from 'dotenv';
 import { MongoClient, ServerApiVersion } from 'mongodb';
-
-
 dotenv.config();
-
 const user = process.env.USERNAME;
 const password = process.env.PASSWORD;
 const cluster_url = process.env.CLUSTER_URL;
-// console.log(user);
-// console.log(password);
-// console.log(cluster_url);
-const url =
-    `mongodb+srv://${user}:${password}@${cluster_url}.9ei9em9.mongodb.net/?retryWrites=true&w=majority&appName=node-js-demo`;
+const url = `mongodb+srv://${user}:${password}@${cluster_url}.9ei9em9.mongodb.net/?retryWrites=true&w=majority&appName=node-js-demo`;
 console.log(url);
-
 const client = new MongoClient(url, {
     serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
     }
 });
-
-
-// Read from API
-export async function getNameFromDb() {
+const dbName = "node-js-demo";
+const collectionName = "people";
+async function connectToDatabase() {
     try {
-      // Connect the client to the server	(optional starting in v4.7)
-      await client.connect();
-      // Send a ping to confirm a successful connection
-      await client.db("admin").command({ ping: 1 });
-      console.log("Pinged your deployment. You successfully connected to MongoDB!");
-      // Creating people collection
-
-    // Provide the name of the database and collection you want to use.
-    // If the database and/or collection do not exist, the driver and Atlas
-    // will create them automatically when you first write data.
-    const dbName = "node-js-demo";
-    const collectionName = "people";
-    var peopleResults;
-    // Create references to the database and collection in order to run
-    // operations on them.
-    const database = client.db(dbName);
-    const collection = database.collection(collectionName);
-
+        await client.connect();
+        await client.db("admin").command({ ping: 1 });
+        console.log("Connected to MongoDB");
+    } catch (err) {
+        console.error('Error connecting to MongoDB:', err);
+    }
+}
+async function getPeople() {
     try {
-      const peopleCursor = await collection.find();
-      peopleResults = await peopleCursor.toArray();
-    //   console.log(peopleResults);
-    //   for(const person of peopleResults) {
-    //     console.log(person.FirstName);
-    //   }
-
-    }catch (err) {
-      console.error(`Something went wrong trying to insert the new documents: ${err}\n`);
+        const database = client.db(dbName);
+        const collection = database.collection(collectionName);
+        const peopleCursor = await collection.find();
+        return await peopleCursor.toArray();
+    } catch (err) {
+        console.error('Error getting people from database:', err);
     }
-    } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
+}
+async function createPerson(person) {
+    try {
+        const database = client.db(dbName);
+        const collection = database.collection(collectionName);
+        const result = await collection.insertOne(person);
+        console.log(`New listing created with the following id: ${result.insertedId}`);
+        return result;
+    } catch (err) {
+        console.error('Error creating person:', err);
     }
-    return peopleResults;
-  }
-  getNameFromDb().catch(console.dir);
-
-export default getNameFromDb;
-
-
-// post to API
-
-// update API
-
-// delete from API
+}
+async function updatePerson(filter, update) {
+    try {
+        const database = client.db(dbName);
+        const collection = database.collection(collectionName);
+        const result = await collection.updateOne(filter, { $set: update });
+        console.log(`${result.matchedCount} document(s) matched the query criteria.`);
+        console.log(`${result.modifiedCount} document(s) updated.`);
+        return result;
+    } catch (err) {
+        console.error('Error updating person:', err);
+    }
+}
+export {
+    connectToDatabase,
+    getPeople,
+    createPerson,
+    updatePerson
+};
