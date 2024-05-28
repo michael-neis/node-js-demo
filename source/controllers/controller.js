@@ -64,40 +64,6 @@ export const getMonthsName = (req, res) => {
         12: 'December'
     });
 }
-// get list of people -- This can come from a database and what's defined in model.js
-// but for the purspuse of this demo, I'm going o juts type a couple of names
-// export const getPeople = (req, res) => {
-//     res.json([
-//         {
-//             FirstName: 'Yann',
-//             LastName: 'Mulonda',
-//             title: 'Software Engineer',
-//             LinkedIn: 'https://www.linkedin.com/in/yannmjl/'
-//         },
-//         {
-//             FirstName: 'Michael',
-//             LastName: 'Neis',
-//             title: 'Software Developer',
-//             LinkedIn: 'https://www.linkedin.com/in/bernard-ngandu/'
-//         },
-//         {
-//             FirstName: 'Odon',
-//             LastName: 'Mulambo',
-//             title: 'Software Developer',
-//             LinkedIn: 'https://www.linkedin.com/in/clerc-ngonga-b1253b174/'
-//         },
-//         {
-//             FirstName: 'David',
-//             LastName: 'Braun',
-//             title: 'Full Stack Developer',
-//             LinkedIn: 'https://www.linkedin.com/in/gloire-kafwalubi-3152871a0/'
-//         }
-//     ]);
-// }
-
-
-
-
 
 
 
@@ -188,7 +154,7 @@ export const getPeopleFromDatabase = async (req, res) => {
 
 
 
-
+// update person in DB
 export const updatePerson = async (req, res) => {
     const dbName = "node-js-demo";
     const collectionName = "people";
