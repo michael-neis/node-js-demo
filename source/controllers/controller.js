@@ -196,11 +196,10 @@
 
 
 import path from 'path';
-import { connectToDatabase, getPeople, createPerson, updatePerson } from '../models/models.js';
+import { getPeople, createPerson, updatePerson } from '../models/models.js';
 import dotenv from 'dotenv';
 dotenv.config();
 const __dirname = path.resolve();
-connectToDatabase();
 // show html page
 export const home = (req, res) => {
     res.sendFile(__dirname + "/source/pages/home.html");
