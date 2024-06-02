@@ -4,7 +4,7 @@
 // encoded in request URLs) to the appropriate controller functions.
 // *******************************************************************
 // import my GET API from the controller functions
-import { home, getTodayDate, getMonthsName, getPeopleFromDatabase } from '../controllers/controller.js';
+import { home, getTodayDate, getMonthsName, getPeoples, getPeopleFromDatabase } from '../controllers/controller.js';
 // set up the routing
 const routes = (app) => {
     // home page
@@ -19,6 +19,10 @@ const routes = (app) => {
     // get list of month names
     app.route('/months')
         .get(getMonthsName)
+    // get list of Peoples that was 
+    // hard coded as example for backend
+    app.route('/peoples')
+        .get(getPeoples)
     // get list of People
     app.route('/people')
         .get(getPeopleFromDatabase)

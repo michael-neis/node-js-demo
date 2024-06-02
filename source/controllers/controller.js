@@ -198,9 +198,11 @@
 import path from 'path';
 import { connectToDatabase, getPeople, createPerson, updatePerson } from '../models/models.js';
 import dotenv from 'dotenv';
+
 dotenv.config();
 const __dirname = path.resolve();
 connectToDatabase();
+
 // show html page
 export const home = (req, res) => {
     res.sendFile(__dirname + "/source/pages/home.html");
@@ -231,6 +233,38 @@ export const getMonthsName = (req, res) => {
         12: 'December'
     });
 }
+
+// get list of people -- This can come from a database and what's defined in model.js
+// but for the purspuse of this demo, I'm going o juts type a couple of names
+export const getPeoples = (req, res) => {
+    res.json([
+        {
+            FirstName: 'Yann',
+            LastName: 'Mulonda',
+            title: 'Software Engineer',
+            LinkedIn: 'https://www.linkedin.com/in/yannmjl/'
+        },
+        {
+            FirstName: 'Michael',
+            LastName: 'Neis',
+            title: 'Software Developer',
+            LinkedIn: 'https://www.linkedin.com/in/bernard-ngandu/'
+        },
+        {
+            FirstName: 'Odon',
+            LastName: 'Mulambo',
+            title: 'Software Developer',
+            LinkedIn: 'https://www.linkedin.com/in/clerc-ngonga-b1253b174/'
+        },
+        {
+            FirstName: 'David',
+            LastName: 'Braum',
+            title: 'Full Stack Developer',
+            LinkedIn: 'https://www.linkedin.com/in/gloire-kafwalubi-3152871a0/'
+        }
+    ]);
+}
+
 // create new person
 export const createPersonHandler = async (req, res) => {
     const newPerson = {

@@ -7,7 +7,7 @@ const app = express();
 const PORT = 3000;
 const HOST = '0.0.0.0';
 
-app.use(cors());
+// app.use(cors());
 
 //body parses
 //create Javascrip array from req parses
