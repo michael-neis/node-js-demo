@@ -5,7 +5,7 @@ const user = process.env.USERNAME;
 const password = process.env.PASSWORD;
 const cluster_url = process.env.CLUSTER_URL;
 const url = `mongodb+srv://${user}:${password}@${cluster_url}.9ei9em9.mongodb.net/?retryWrites=true&w=majority&appName=node-js-demo`;
-//console.log(url);
+console.log(url);
 const client = new MongoClient(url, {
     serverApi: {
         version: ServerApiVersion.v1,
