@@ -34,8 +34,8 @@ jobs:
   # This job build a docker images from the dockerfile in our repo
   # and push that docker image to Docker Hub. More inof here: 
   # https://github.com/marketplace/actions/build-and-push-docker-images
-  build-deploy:
-    name: Deploy 2 DockerHub
+  deploy-to-dockerhub:
+    name: Prod | Deploy to DockerHub
     environment: prod
 
     # This is the runner aka container/machine where 
@@ -69,3 +69,34 @@ jobs:
           # neisguy/nodejs-backend:tagname
           # dockerhub username / dockerhub reposiroty : the image tag
           tags: ${{ vars.DOCKERHUB_USERNAME }}/nodejs-backend:latest
+
+  # Deplopy the docker image to Amazon ECR
+  deploy-to-ecr:
+    name: Prod | Deploy to ECR
+    environment: aws
+    runs-on: ubuntu-latest
+
+    # run prod deployment job only if test deployment was 
+    # successful
+    needs: test-build
+
+    steps:
+      - name: Repo Checkout
+        uses: actions/checkout@v4
+
+      - name: Run on PR approved
+        run: |
+          echo "PullRequest was reviewed, approved, and Merged"
+          echo "Prod deployment was reviewed and approved"
+        
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-region: ${{vars.REGION}}
+      #     role-to-assume: ${{vars.IAM_ROLE}}
+      #     role-session-name: deploy-docker-image-to-ecr
+
+      # - name: Validate IAM role Access
+      #   # list all the repositories in the default registry of your account.
+      #   run: |
+      #     aws ecr describe-repositories
