@@ -100,3 +100,20 @@ jobs:
       #   # list all the repositories in the default registry of your account.
       #   run: |
       #     aws ecr describe-repositories
+
+  # Contributors-Readme-Action is a simple GitHub action to automate contributors
+  # list in README file. Not only contributors, collborators, bots or any user.
+  # More info: https://github.com/marketplace/actions/contribute-list
+  contributors-readme:
+    name: Update Contributors List
+    runs-on: ubuntu-latest
+
+    # update contributor list when new code was
+    # successful validated, scanned and deployed to prod
+    needs: deploy-to-dockerhub
+    
+    steps:
+      - name: Contribute List
+        uses: akhilmhdh/contributors-readme-action@v2.3.8
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
