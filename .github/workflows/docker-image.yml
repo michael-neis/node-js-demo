@@ -89,17 +89,17 @@ jobs:
           echo "PullRequest was reviewed, approved, and Merged"
           echo "Prod deployment was reviewed and approved"
         
-      # - name: Configure AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v4
-      #   with:
-      #     aws-region: ${{vars.REGION}}
-      #     role-to-assume: ${{vars.IAM_ROLE}}
-      #     role-session-name: deploy-docker-image-to-ecr
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+           aws-region: ${{vars.REGION}}
+           role-to-assume: ${{vars.IAM_ROLE}}
+           role-session-name: deploy-docker-image-to-ecr
 
-      # - name: Validate IAM role Access
-      #   # list all the repositories in the default registry of your account.
-      #   run: |
-      #     aws ecr describe-repositories
+      - name: Validate IAM role Access
+         # list all the repositories in the default registry of your account.
+        run: |
+           aws ecr describe-repositories
 
   # Contributors-Readme-Action is a simple GitHub action to automate contributors
   # list in README file. Not only contributors, collborators, bots or any user.
