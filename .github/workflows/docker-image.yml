@@ -48,9 +48,11 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          # dockerhub username / dockerhub repository : the image tag
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/node-js-demo:latest
-  # Deploy the docker image to Amazon ECR
+          # neisguy/nodejs-backend:tagname
+          # dockerhub username / dockerhub reposiroty : the image tag
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/nodejs-backend:latest
+
+  # Deplopy the docker image to Amazon ECR
   deploy-to-ecr:
     name: Prod | Deploy to ECR
     environment: aws
