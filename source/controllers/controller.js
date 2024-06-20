@@ -65,7 +65,7 @@ export const getPeoples = (req, res) => {
         },
         {
             FirstName: 'David',
-            LastName: 'Braum',
+            LastName: 'Braun',
             title: 'Full Stack Developer',
             LinkedIn: 'https://www.linkedin.com/in/gloire-kafwalubi-3152871a0/'
         }
