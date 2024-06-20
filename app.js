@@ -9,6 +9,7 @@ const HOST = '0.0.0.0';
 
 // Allowed origins
 const allowedOrigins = [
+  'https://main--frontend-nodejs.netlify.app',
   'https://nodejs-frontend-spring2024.netlify.app/'
 ];
 
