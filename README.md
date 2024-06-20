@@ -1,1 +1,64 @@
-Backend node-js demo using AWS
+READMEs are the first stop of technical documentation for SCS engineers.
+
+This is a demo repo using AWS asa backend
+
+A well design readme is like a user manual
+
+It should provide the reader/engineer with enough information to get started on their work, such as:
+
+* An overview of what the repo is about
+
+* the source code organization
+
+* Deployment pipeline details info - How what each of the workflows does 
+
+* How the code work / How to use it
+
+* How to contribute to the source code repo
+
+* etc.
+
+## Contribution <a id="contribution"></a>
+
+> [!CAUTION]
+> * This repo has one branch: **main**
+> * **This repo DO NOT allow direct push to main branch.**
+> * *Changes should be made on a feature branch only then merged to main after review and approval*
+
+> Contributors:
+
+<!-- readme: contributors -start -->
+
+<!-- readme: contributors -end -->
+
+#### Setup SSH connect between ICF Corp-GitHub
+
+More info on [how to set up SSH from Source Code management to Local machine](https://medium.com/p/d805bb2ed28b)
+
+> [!TIP]
+> Makes sure you configure and authorizse SSO on your SSH authentication key like so:
+
+![Configure & Authorize SSO](./images/configureSSO.gif)
+
+#### Clone Repo & Setup feature Branch
+
+For Windowns → Go to “Git Bash”, Right-click and “Run as Administrator”.<br> 
+For Mac and Linux → Go to the terminal.<br>
+Run the following commands to clone and create your feature branch:
+
+```bash
+git clone git@github.com:michael-neis/node-js-demo.git
+cd node-js-demo
+git checkout -b feature/yourBranchName
+```
+
+> [!IMPORTANT]  
+> Make sure your *feature/* branch name following the naming standard above. 
+> This is used for automated testing and [validation in CI with GitHub Actions](https://github.com/michael-neis/node-js-demo/actions).
+
+After making the necessary code changes, submited a pull request from your feature branch 
+to main branch for review and approval before shipping the new changes to CD pipeline.
+
+> [!WARNING]  
+> To maintain a clean repo, automatic deletion of feature branches upon PR approval is enable on this repo. 
+> Your branches automatically deleted after pull requests are merged into Main branch.
