@@ -1,24 +1,35 @@
 import express from 'express';
 import routes from './source/routes/routes.js';
+import cors from 'cors';
 
-
-// variable
+// Variables
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 
-// app.use(cors());
+// Allowed origins
+const allowedOrigins = [
+  'https://nodejs-frontend-spring2024.netlify.app/'
+];
 
-//body parses
-//create Javascrip array from req parses
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200
+};
+
+// Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 // Application routes
-// connect our application to Express app
-
 routes(app);
-
-app.listen(PORT, function(){
-    console.log(`Server running on http://${PORT}`);
+app.listen(PORT, HOST, function () {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
