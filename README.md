@@ -1,4 +1,6 @@
-READMEs are the first stop of technical documentation for SCS engineers. 
+READMEs are the first stop of technical documentation for SCS engineers.
+
+This is a demo repo using AWS asa backend
 
 A well design readme is like a user manual
 
